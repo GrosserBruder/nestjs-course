@@ -9,6 +9,9 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true, // валидатор лишает проверенный объект любых свойств, у которых нет декораторов. Используйте декоратор @Allow, если другие не подходят
       transform: true, // трансформирует данные из запроса в инстансы DTO
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
