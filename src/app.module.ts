@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'db/dataSource';
-import { DatabaseModule } from './database/database.module';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 
 @Module({
