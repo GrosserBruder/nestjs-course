@@ -9,7 +9,7 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/paginati
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffee.constants';
 
-@Injectable({ scope: Scope.DEFAULT })
+@Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
@@ -18,7 +18,9 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
     @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>
-  ) { }
+  ) { 
+    console.log("CoffeesService is created")
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
