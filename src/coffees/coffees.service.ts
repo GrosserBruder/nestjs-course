@@ -9,7 +9,7 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/paginati
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffee.constants';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
