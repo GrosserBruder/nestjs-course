@@ -17,7 +17,6 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @UsePipes(ValidationPipe) // предпочтительнее
-// @UsePipes(new ValidationPipe())
 @Controller('coffees')
 export class CoffeesController {
   constructor(
