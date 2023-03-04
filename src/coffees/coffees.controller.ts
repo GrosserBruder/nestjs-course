@@ -23,7 +23,7 @@ import { Public } from 'src/common/decorators/public.decorator';
 export class CoffeesController {
   constructor(
     private readonly coffeeService: CoffeesService,
-    ) {
+  ) {
     console.log("CoffeesController is created")
   }
 
@@ -31,7 +31,8 @@ export class CoffeesController {
   @Public()
   @UsePipes(ValidationPipe)
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    await new Promise(resolve => setTimeout(resolve, 5000))
     return this.coffeeService.findAll(paginationQuery);
   }
 
