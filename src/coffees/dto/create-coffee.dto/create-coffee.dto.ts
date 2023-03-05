@@ -6,11 +6,9 @@ export class CreateCoffeeDto {
   @IsString()
   readonly name: string;
 
-  @ApiProperty()
   @IsString()
   readonly brand: string;
 
-  @ApiProperty()
   @IsString({ each: true })
   readonly flavors: Array<string>;
 }
