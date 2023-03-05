@@ -6,7 +6,7 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
-import { Event } from 'src/events/entities/event.entity';
+import { Event } from '../events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffee.constants';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import coffeesConfig from './config/coffees.config';
@@ -19,14 +19,14 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
-    @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>,
-    private readonly configService: ConfigService,
-    @Inject(coffeesConfig.KEY)
-    private readonly configConfig: ConfigType<typeof coffeesConfig>,
+    // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>,
+    // private readonly configService: ConfigService,
+    // @Inject(coffeesConfig.KEY)
+    // private readonly configConfig: ConfigType<typeof coffeesConfig>,
   ) { 
-    const databaseHost = this.configService.get<string>('coffees.foo')
-    console.log(databaseHost)
-    console.log(configConfig)
+    // const databaseHost = this.configService.get<string>('coffees.foo')
+    // console.log(databaseHost)
+    // console.log(configConfig)
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
