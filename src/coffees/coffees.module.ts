@@ -32,16 +32,16 @@ export class CoffeeBrandsFactory {
   providers: [
     CoffeesService,
     // { provide: COFFEE_BRANDS, useFactory: (brandsFactory: CoffeeBrandsFactory) => brandsFactory.create(), inject: [CoffeeBrandsFactory] },
-    {
-      provide: COFFEE_BRANDS, useFactory: async (connection: Connection) => {
-        // const coffeeBrands = await connection.query("SELECT * ...")
-        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe'])
-        return coffeeBrands
-      },
-      inject: [Connection],
-      scope: Scope.DEFAULT,
-    },
-    { provide: ConfigService, useClass: process.env.NODE_ENV === 'development' ? DevelopmentConfigService : ProductionConfigService }
+    // {
+    //   provide: COFFEE_BRANDS, useFactory: async (connection: Connection) => {
+    //     // const coffeeBrands = await connection.query("SELECT * ...")
+    //     const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe'])
+    //     return coffeeBrands
+    //   },
+    //   inject: [Connection],
+    //   scope: Scope.DEFAULT,
+    // },
+    // { provide: ConfigService, useClass: process.env.NODE_ENV === 'development' ? DevelopmentConfigService : ProductionConfigService }
   ],
   exports: [CoffeesService],
 })

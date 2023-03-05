@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "npm run build && npx typeorm -d dist/db/dataSource.js",
-    "migration:generate": "npm run typeorm -- migration:generate db/migrations/."
+    "migration:generate": "npm run typeorm -- migration:generate db/migrations/.",
+    "pretest:e2e": "type NUL > e2e-test.sqlite3",
+    "posttest:e2e": "del e2e-test.sqlite3"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -34,6 +36,7 @@
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "sqlite3": "^5.1.4",
     "swagger-ui-express": "^4.6.2",
     "typeorm": "^0.3.11"
   },
