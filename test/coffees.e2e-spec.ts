@@ -1,10 +1,17 @@
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CoffeesModule } from '../src/coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
+import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto/create-coffee.dto';
 
 describe('[Feature] Coffees - /coffees', () => {
+  const coffee = {
+    name: 'Shipwreck Roast',
+    brand: 'Buddy Brew',
+    flavors: ['chocolate', 'vanilla'],
+  }
+
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -20,19 +27,35 @@ describe('[Feature] Coffees - /coffees', () => {
       ],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication(); app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true, // валидатор лишает проверенный объект любых свойств, у которых нет декораторов. Используйте декоратор @Allow, если другие не подходят
+        transform: true, // трансформирует данные из запроса в инстансы DTO
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    );
     await app.init();
   });
 
-  // it('/ (GET)', () => {
-  //   return request(app.getHttpServer())
-  //     .get('/')
-  //     .set('Authorization', process.env.API_KEY)
-  //     .expect(200)
-  //     .expect('Hello World!');
-  // });
+  it('Create [POST /]', () => {
+    return request(app.getHttpServer())
+      .post('/coffees')
+      .send(coffee as CreateCoffeeDto)
+      .expect(HttpStatus.CREATED)
+      .then(({ body }) => {
+        const expectedCoffee = jasmine.objectContaining({
+          ...coffee,
+          flavors: jasmine.arrayContaining(
+            coffee.flavors.map((name) => jasmine.objectContaining({ name }))
+          )
+        })
 
-  it.todo('Create [POST /]');
+        expect(body).toEqual(expectedCoffee)
+      })
+
+  });
   it.todo('Get all [GET /]');
   it.todo('Get one [GET /:id]');
   it.todo('Update one [PATCH /:id]');
